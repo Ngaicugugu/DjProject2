@@ -42,8 +42,9 @@ class Books(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=255)
     author = models.CharField(max_length=255)
-    images = models.CharField(max_length=255, default="")
+    price = models.DecimalField(max_digits=10, decimal_places=2, default="0")
     Description = models.CharField(max_length=255)
+    images = models.CharField(max_length=500, default="")
 
 class Cat(models.Model):
     id = models.AutoField(primary_key=True)
