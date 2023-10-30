@@ -57,6 +57,27 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000" 
 ]
 
+CORS_ALLOW_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+    'https://your-other-allowed-origin.com',
+]
+
+CORS_ALLOW_HEADERS = [
+    'Authorization',
+    'Content-Type',
+]
+
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
 ROOT_URLCONF = 'backend.urls'
 
 TEMPLATES = [

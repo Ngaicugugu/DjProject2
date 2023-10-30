@@ -1,19 +1,29 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { apiPaths } from 'src/services/api/path-api';
 import fetch from 'src/services/axios/Axios';
-import { ProductType } from 'src/types/product';
+import { BookType } from 'src/types/book';
 
 interface ProductState {
-  product: ProductType[];
+  product: BookType[];
+  productDetail: BookType | null;
 }
 
 const initialState: ProductState = {
   product: [],
+  productDetail: null,
 };
 
 //  AsyncThunk
 export const getProduct = createAsyncThunk('product/getProduct', async (_, thunkApi) => {
-  const res = await fetch.get<ProductType[]>(apiPaths.book, {
+  const res = await fetch.get<BookType[]>(apiPaths.book, {
+    signal: thunkApi.signal,
+  });
+  console.log(res.data);
+  return res.data;
+});
+
+export const getDetailProduct = createAsyncThunk('product/getDetailProduct', async (id: any, thunkApi) => {
+  const res = await fetch.get<BookType>(`${apiPaths.book}/${id}`, {
     signal: thunkApi.signal,
   });
   console.log(res.data);
@@ -26,9 +36,14 @@ const productSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase('product/getProduct', (state, action: any) => {
-      state.product = action.payload;
-    });
+    builder
+      .addCase('product/getProduct', (state, action: any) => {
+        state.product = action.payload;
+      })
+      .addCase('product/getDetailProduct', (state, action: any) => {
+        const detail: any = state.product.find((post) => post.id === action.payload.id);
+        state.productDetail = detail;
+      });
   },
 });
 
