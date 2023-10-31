@@ -47,7 +47,7 @@ export default function HomeView() {
 
       <BestSellingBooks books={books} />
 
-      <LatestBooks books={books} />
+      {/* <LatestBooks books={books} /> */}
     </>
   );
 }
